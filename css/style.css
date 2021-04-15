@@ -1,0 +1,22 @@
+.bg-light {
+    background-color: #0879c9 !important;
+}
+
+.navbar-brand {
+    margin-right: 0;
+}
+
+.logo {
+    width: 60%;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.btn-custom {
+    background-color: #a1c128;
+    padding-left: 2px;
+}
+
+.formCustom {
+    width: 70%;
+}
