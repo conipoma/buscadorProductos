@@ -11,13 +11,7 @@
     <title>Desafío Wallmart</title>
 </head>
 <body>
-<!-- <div class="container mt-5">
-    <h1>Buscador con IndexOf</h1>
-    <input type="text" id="formulario" class="form-control my-2">
-    <button class="btn btn-info mb-2" id="boton">Buscar</button>
-    <ul id="resultado">
-    </ul>
-</div> -->
+<section class="back">
 
 <!-- Div Horarios -->
 <div class="bHorario">
@@ -26,24 +20,22 @@
 
 <!-- navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid nav-container">
-      <a class="navbar-brand" href="#"><img class="logo" src="img/lider-logo.png" alt=""></a>
-      <input type="text" id="form-custom" class="form-control my-4 form" placeholder="¿Qué estás buscando?">
-      <button type="submit" class="btn btn-custom my-3" onclick="search(document.getElementById('form-custom').value)" id="searchButton">Buscar</button>
-      </div>
+  <div class="container-fluid nav-container">
+    <a class="navbar-brand" href="#"><img class="logo" src="img/lider-logo.png" alt=""></a>
+    <input type="text" id="form-custom" class="form-control my-4 form" placeholder="¿Qué estás buscando?">
+    <button type="submit" class="btn btn-custom my-3" onclick="search(document.getElementById('form-custom').value)" id="searchButton">Buscar</button>
     </div>
-  </nav>
+  </div>
+</nav>
 
 <!-- Nav  -->
 <div class="container-fluid cols">
   <section id="cols-sup"></section>
 </div>
 
-
 <!-- Product Card -->
 <div class="container-fluid card-container">
-<section class="row " id="card-product"></section>
-
+  <section class="row" id="card-product"></section>
 </div>
 
 <!-- Pagination -->
@@ -66,6 +58,7 @@
 <div class="footer">
   <p></p>
 </div>
+</section>
 
 <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
