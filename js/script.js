@@ -13,7 +13,7 @@ function search(searchString){
 function productSearch(searchString) {  
     var cardProduct = document.getElementById('card-product');
     var colsSup = document.getElementById('cols-sup');
-    axios.get('http://localhost:3000/products/' + searchString).then((response) => {
+    axios.get('https://desafiowalmartapi.azurewebsites.net/products/' + searchString).then((response) => {
         colsSup.innerHTML = ' ';
         colsSup.innerHTML += `<div class="container-fluid cols">
             <section id="cols-sup">
