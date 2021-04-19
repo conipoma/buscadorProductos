@@ -53,7 +53,7 @@ function productSearch(searchString) {
                 <button type="button" class="btn btn-add" id="add-button">Agregar</button>
              </div>`
 
-        }else {
+        } else {
             response.data.forEach((element) => { 
                 console.log(element)
                 cardProduct.innerHTML += `<div class="card-container" style="width: 18rem" id="container-card">
@@ -80,6 +80,6 @@ function productSearch(searchString) {
         };
     })
     .catch ((err) => {
-        alert(err); 
+        console.log(err); 
     })
 };
