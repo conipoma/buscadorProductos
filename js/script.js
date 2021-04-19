@@ -1,36 +1,88 @@
-const productos = [
-    {nombre: 'Plátanos', valor: 500},{nombre: 'Pera', valor: 500},
-    {nombre: 'Sandia', valor: 500},{nombre: 'Melón', valor: 500},
-    {nombre: 'Frutillas', valor: 500}
-]
+const searchBar = document.querySelector('#form-custom');
+const boton = document.querySelector('#searchButton');
 
-const formulario = document.querySelector('#formulario');
-const boton = document.querySelector('#boton');
-const resultado = document.querySelector('#resultado');
-
-const filtrar = () =>{
-    // console.log(formulario.value);
-    resultado.innerHTML = '';
-
-    const texto = formulario.value.toLowerCase()
-
-    for (let producto of productos){
-        let nombre = producto.nombre.toLowerCase();
-        if(nombre.indexOf(texto) !== -1){
-            resultado.innerHTML  += `
-            <li>${producto.nombre} - valor: ${producto.valor}</li>
-            `
-        } 
-    }
-
-    if(resultado.innerHTML === ''){
-        resultado.innerHTML  += `
-            <li>Producto no encontrado...</li>
-            `
+function search(searchString){
+    const regex = /^[0-9]*$/;
+    if (searchString.length > 2 || regex.test(searchString)) {
+        productSearch(searchString);
     }
 }
 
-boton.addEventListener('click', filtrar);
-formulario.addEventListener('keyup', filtrar);
+// Funcion mostrar productos 
+function productSearch(searchString) {  
+    var cardProduct = document.getElementById('card-product');
+    var colsSup = document.getElementById('cols-sup');
+    axios.get('http://localhost:3000/products/' + searchString).then((response) => {
+        colsSup.innerHTML = ' ';
+        colsSup.innerHTML += `<div class="container-fluid cols">
+        <section id="cols-sup"><div class="row cols-sup">
+          <div class="col col-one">
+            <p>Resultados para ${searchString}:</p>
+          </div><div class="col col-two">
+          <button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="right" title="Tooltip on left">Ordenar por: destacador</button> 
+        </div>
+      </div></section>
+    </div>`
 
-// filtrar();
+        cardProduct.innerHTML = ' ';
+        const regex = /^[0-9]*$/;
+        if(regex.test(searchString)){
+            console.log('Pedido a la Api'); console.log(response.data);
+            cardProduct.innerHTML += `<div class="container-fluid card-container">
+            <div class="card" style="width: 18rem;" id="container-card">
+            
+                <img src="http://${response.data.image}" class="card-img-top" id="product-img">
+        
+                <div class="card-body" id="card-body">
+                    <h5 class="product-brand" id="product-brand"><span class="spanBrand">${response.data.brand}</span> <span class="spanDescription">${response.data.description}</span></h5>
+        
+                    <p class="product-price" id="product-price"> $ ${response.data.price} </p>
+                </div>
+            </div>`
+            var cardBody = document.getElementById('card-body');
+
+            if (response.data.promotion) {
+                var productPrice = document.getElementById('product-price');
+                productPrice.innerHTML += `<button class="btn btn-danger alert-discount" id="discount-button">50%</button>`
+                
+                cardBody.innerHTML += `<p class="product-price" id="product-original-price"><span class="spanPrice">$ ${response.data.originalPrice}</span></p>`
+            }
+            cardBody.innerHTML += `<div class="add-button container-button">
+            <button type="button" class="btn btn-add" id="add-button">Agregar</button>
+        </div>`
+
+        }else {
+        response.data.forEach((element) => { 
+            console.log(element)
+            cardProduct.innerHTML += `<div class="container-fluid card-container">
+            <div class="card" style="width: 18rem;" id="container-card">
+            
+                <img src="http://${element.image}" class="card-img-top" id="product-img">
+        
+                <div class="card-body" id="card-body${element.id}">
+                    <h5 class="product-brand" id="product-brand"><span class="spanBrand">${element.brand}</span> <span class="spanDescription">${element.description}</span></h5>
+        
+                    <p class="product-price" id="product-price${element.id}"> $ ${element.price}</p>
+
+                </div>
+            </div>`
+
+            var cardBody = document.getElementById('card-body' + element.id);
+            if (element.promotion) {
+                
+                var productPrice = document.getElementById('product-price' + element.id);
+                productPrice.innerHTML += `<button class="btn btn-danger alert-discount" id="discount-button">50%</button>`
+               
+                cardBody.innerHTML += `<p class="product-price" id="product-original-price"><span class="spanPrice">$ ${element.originalPrice}</span></p>`
+            }
+            cardBody.innerHTML += `<div class="add-button container-button">
+            <button type="button" class="btn btn-add" id="add-button">Agregar</button>
+            </div>`
+        });
+        
+    }
+    })
+    .catch ((err) => {
+        alert(err); 
+    })
+};
